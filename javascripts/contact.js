@@ -32,17 +32,20 @@ document.addEventListener('DOMContentLoaded', () => {
   //call search function 
   //Attaches a click event listener to an element with the ID 'search', 
   //triggering the processSearch function when clicked. 
-  $('#search').addEventListener('click', (event) => {
-    event.preventDefault(); // Prevent the default form submission behavior
-    processSearch();
-  });
+ // $('#search').addEventListener('click', (event) => {
+    //event.preventDefault(); // Prevent the default form submission behavior
+   // processSearch();
+ // });
+  $('#search').addEventListener('click', processSearch);
 });
 
 //This function is a shorthand for selecting a DOM element by its CSS selector.
 const $ = (selector) => document.querySelector(selector);
 
 //This function is called when the search button is clicked.
-const processSearch = () => {
+const processSearch = (event) => {
+
+  event.preventDefault();
   // get form controls to check for validity
   const department = $('#department');
   const campus = $('#campus');
@@ -66,19 +69,12 @@ const processSearch = () => {
   } else {
     $('#campus').nextElementSibling.textContent = '';
   }
-
-  //If all entries are valid, it constructs a message with professor details, 
-  //department, campus, phone number, and email. A sample string
-  const professor = 'Vy Ngoc Phuong Ly';
-  const phonenumber = '437-383-0000';
-  const email = 'vyngocphuongvy@humber.ca'
-
-  const message = `Professor: ${professor}\nDepartment: ${department.value}\nCampus: ${campus.value}\nPhone number: ${phonenumber}\nEmail: ${email}`;
   // submit the form if all fields are valid
   /*checks if all fields in the form are valid, If they are valid, an alert dialog is displayed 
   with the information contained in the message.*/
   if (isValid == true) {
-    alert(message);
-   // $('form').submit(formData);
+   //$('form').submit();
+   //console.log('campus',campus.value);
+   window.location.href = `./confirm.html?department=${encodeURIComponent(department.value)}&campus=${encodeURIComponent(campus.value)}`;
   }
 };
